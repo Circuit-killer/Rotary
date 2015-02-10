@@ -83,6 +83,11 @@ Rotary::Rotary(char _pin1, char _pin2) {
   state = R_START;
 }
 
+Rotary::Rotary() {
+  // Initialise state.
+  state = R_START;
+}
+
 unsigned char Rotary::process() {
   // Grab state of input pins.
   unsigned char pinstate = (digitalRead(pin2) << 1) | digitalRead(pin1);
@@ -91,3 +96,15 @@ unsigned char Rotary::process() {
   // Return emit bits, ie the generated event.
   return state & 0x30;
 }
+
+unsigned char Rotary::processMan(boolean _pin2, boolean _pin1) {
+  // Grab state of input pins.
+  unsigned char pinstate = (_pin2 << 1) | _pin1;
+  // Determine new state from the pins and state table.
+  state = ttable[state & 0xf][pinstate];
+  // Return emit bits, ie the generated event.
+  return state & 0x30;
+}
+
+}
+

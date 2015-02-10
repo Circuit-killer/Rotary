@@ -24,10 +24,12 @@
 class Rotary
 {
   public:
+    Rotary();
     Rotary(char, char);
     unsigned char process();
-  private:
+    unsigned char processMan(boolean _pin2, boolean _pin1);
     unsigned char state;
+  private:
     unsigned char pin1;
     unsigned char pin2;
 };
